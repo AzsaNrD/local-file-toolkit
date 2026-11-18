@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/*
+ * Manual dark mode: `dark:` applies when an ancestor carries the `.dark`
+ * class (set by the bootstrap script in layout.tsx). Dark is the default
+ * when nothing is stored; light is the "daylight" variant of the same HUD.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light ("daylight") values. Ratios below were measured with the antislop
+   contrast checker; text pairs need 4.5:1, control edges and the focus ring 3:1. */
+:root {
+  --background: #f3f5f7;
+  /* Cards, inputs, selects: one step above the page. */
+  --surface: #ffffff;
+  /* A fixed white sheet, identical in both modes: the signature pad stays a white page
+     so dark ink is visible. #4a5868 on it is 7.27:1. */
+  --paper: #ffffff;
+  --paper-foreground: #4a5868;
+  --foreground: #0b1220;
+  --muted: #e7ebef;
+  /* #4a5868: 6.07:1 on --muted, so badges and hints pass AA on the muted surface. */
+  --muted-foreground: #4a5868;
+  /* Decorative separators (cards, list rows). Not for control edges. */
+  --border: #d3dae2;
+  /* Control edges (inputs, selects, dropzone): 4.01:1 on --background, above the 3:1 bar (WCAG 1.4.11). */
+  --border-strong: #6b7a8c;
+
+  /* The one accent: cyan, the HUD / terminal-readout color. Dark teal in light
+     mode: #0b6a84 is 5.14:1 on --muted and 6.16:1 under white button text. */
+  --accent: #0b6a84;
+  --accent-foreground: #ffffff;
+  /* Focus ring follows the accent; kept as its own token so it can diverge. */
+  --ring: #0b6a84;
+
+  /* Error and destructive only. #be185d: 5.04:1 on --muted, 6.04:1 under white text. */
+  --danger: #be185d;
+  --danger-foreground: #ffffff;
+
+  /* Faint HUD grid. An identity motif for a precision-readout tool, not decoration on content. */
+  --grid-line: rgb(11 18 32 / 0.045);
+
+  /* Glow is one hairline ring in light mode: a soft halo does not read on a pale page. */
+  --glow: 0 0 0 1px var(--accent);
+
+  /* Sharp, near-square corners; cards one step softer than controls. */
+  --radius-control: 2px;
+  --radius-card: 4px;
+}
+
+.dark {
+  --background: #07090d;
+  --surface: #0d1117;
+  --paper: #ffffff;
+  --paper-foreground: #4a5868;
+  --foreground: #e6edf3;
+  --muted: #141a22;
+  /* #8b98a8: 5.96:1 on --muted. */
+  --muted-foreground: #8b98a8;
+  --border: #1f2a36;
+  /* #5b6e83: 3.61:1 on --surface, 3.33:1 on --muted (non-text 3:1 bar). */
+  --border-strong: #5b6e83;
+
+  /* #22d3ee: 9.68:1 on --muted as text; #031a20 on it is 9.91:1. */
+  --accent: #22d3ee;
+  --accent-foreground: #031a20;
+  --ring: #22d3ee;
+
+  /* Neon pink, not red: #ff4d8d is 6.04:1 on --surface; #2a0010 on it is 6.06:1. */
+  --danger: #ff4d8d;
+  --danger-foreground: #2a0010;
+
+  --grid-line: rgb(34 211 238 / 0.05);
+
+  --glow:
+    0 0 0 1px var(--accent),
+    0 0 14px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-paper: var(--paper);
+  --color-paper-foreground: var(--paper-foreground);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+
+  /* The existing rounded / rounded-md / rounded-lg classes pick these up. */
+  --radius-sm: var(--radius-control);
+  --radius-md: var(--radius-control);
+  --radius-lg: var(--radius-card);
+
+  --shadow-glow: var(--glow);
+
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+/* One focus indicator for every interactive element (WCAG 2.4.7, PRD NF7). */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    box-shadow: var(--glow);
+  }
+}
+
+/* Tailwind v4 resets buttons to the arrow cursor. Enabled buttons get the hand
+   so clickable controls read as clickable; utility classes such as cursor-grab
+   still override this (utilities layer outranks base). */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
+body {
+  background-color: var(--background);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* The two moving pieces besides hover and focus, both state changes: the result panel
+   easing in when a run finishes, and the indeterminate progress segment sweeping across
+   its track. Under prefers-reduced-motion the rule below shortens the first to one frame
+   and the progress bar swaps its sweep for a static fill. */
+@keyframes result-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes progress-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+@utility animate-result-in {
+  animation: result-in 160ms ease-out both;
+}
+
+@utility animate-progress-slide {
+  animation: progress-slide 1.2s ease-in-out infinite;
+}
+
+/* Indeterminate progress and the rotate preview are state changes, not
+   decoration, but users who ask for less motion get none. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

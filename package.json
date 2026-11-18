@@ -1,0 +1,55 @@
+{
+  "name": "local-file-toolkit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PDF and image tools that run on your own machine.",
+  "author": "Local File Toolkit",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "postinstall": "node scripts/copy-pdf-worker.mjs",
+    "electron:run": "node scripts/electron-build.mjs run",
+    "electron:dir": "node scripts/electron-build.mjs dir",
+    "electron:build": "node scripts/electron-build.mjs installer"
+  },
+  "build": {
+    "appId": "local.filetoolkit.app",
+    "productName": "Local File Toolkit",
+    "directories": { "output": "dist-electron" },
+    "files": ["electron/**", "public/icons/**", "package.json", "!node_modules/**"],
+    "extraResources": [{ "from": ".next/standalone", "to": "server" }],
+    "afterPack": "scripts/after-pack.cjs",
+    "win": { "target": ["nsis"], "icon": "public/icons/icon-512.png" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true }
+  },
+  "dependencies": {
+    "@tesseract.js-data/eng": "^1.0.0",
+    "@tesseract.js-data/ind": "^1.0.0",
+    "browser-image-compression": "^2.0.2",
+    "lucide-react": "^1.47.0",
+    "next": "16.3.5",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "6.3.289",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-dropzone": "^20.1.2",
+    "sonner": "^2.0.8",
+    "tesseract.js": "^7.0.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "electron": "^45.3.1",
+    "electron-builder": "^26.18.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.5",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
