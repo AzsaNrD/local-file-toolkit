@@ -240,7 +240,7 @@ export default function Home() {
           Everyday PDF, image and Office file tasks, done on your own machine.
         </p>
         <p className="max-w-2xl text-sm text-muted-foreground">
-          Most tools run entirely in your browser: files are never uploaded anywhere. A few
+          Most tools do all their work on this device: files are never uploaded anywhere. A few
           hand the file to a program installed on this computer (Microsoft Office, LibreOffice
           or Ghostscript). The file still never leaves it.
         </p>
