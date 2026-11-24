@@ -7,7 +7,7 @@ export const CATEGORY_ORDER: ToolCategory[] = ["pdf", "image", "convert", "utili
 export const CATEGORY_LABELS: Record<ToolCategory, string> = {
   pdf: "PDF Tools",
   image: "Image Tools",
-  convert: "Convert",
+  convert: "Convert Tools",
   utility: "File Tools",
 };
 

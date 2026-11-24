@@ -236,7 +236,7 @@ export default function Home() {
           Local File Toolkit
         </h1>
         <p className="text-lg text-muted-foreground">
-          Everyday PDF and image tasks, done on your own machine.
+          Everyday PDF, image and Office file tasks, done on your own machine.
         </p>
         <p className="max-w-2xl text-sm text-muted-foreground">
           Most tools run entirely in your browser: files are never uploaded anywhere. A few
