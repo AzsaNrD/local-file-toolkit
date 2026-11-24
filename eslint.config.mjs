@@ -12,6 +12,12 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Desktop wrapper and build scripts are plain CommonJS/Node files, not app code.
+    "electron/**",
+    "scripts/**",
+    "dist-electron/**",
+    // Third-party minified files copied into public/ (PDF worker, OCR engine, image compressor).
+    "public/**",
   ]),
 ]);
 
