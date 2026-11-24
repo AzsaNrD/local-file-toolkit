@@ -63,6 +63,8 @@ function startServer(port) {
     env: {
       ...process.env,
       ELECTRON_RUN_AS_NODE: "1",
+      // Tells the server it runs inside the desktop app, and which version, for the update notice.
+      LFT_APP_VERSION: app.getVersion(),
       NODE_ENV: "production",
       PORT: String(port),
       HOSTNAME: HOST,

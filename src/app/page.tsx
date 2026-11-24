@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { ToolIcon } from "@/components/ToolIcon";
 import { CategoryFilter } from "@/components/CategoryFilter";
+import { UpdateNotice } from "@/components/UpdateNotice";
 import { TOOLS, requiredCapabilities } from "@/lib/tools";
 import {
   CATEGORY_LABELS,
@@ -243,6 +244,7 @@ export default function Home() {
           hand the file to a program installed on this computer (Microsoft Office, LibreOffice
           or Ghostscript). The file still never leaves it.
         </p>
+        <UpdateNotice />
       </header>
 
       {/* useSearchParams needs a Suspense boundary on a prerendered page. The fallback
