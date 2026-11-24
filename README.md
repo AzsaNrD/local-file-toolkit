@@ -305,7 +305,7 @@ npm install
 npm run electron:build
 ```
 
-Hasilnya ada di `dist-electron\Local File Toolkit Setup 0.1.0.exe`. File ini sudah berisi semua yang dibutuhkan, jadi komputer yang menjalankannya nggak perlu Node.js atau npm.
+Hasilnya ada di `dist-electron\Local File Toolkit Setup <versi>.exe`. File ini sudah berisi semua yang dibutuhkan, jadi komputer yang menjalankannya nggak perlu Node.js atau npm.
 
 Aplikasi desktop ini belum bisa update sendiri. Tiap ada versi baru, build installer-nya lagi lalu upload ke Releases.
 

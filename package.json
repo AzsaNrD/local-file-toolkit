@@ -1,6 +1,6 @@
 {
   "name": "local-file-toolkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "PDF and image tools that run on your own machine.",
   "author": "Local File Toolkit",
@@ -18,12 +18,32 @@
   "build": {
     "appId": "local.filetoolkit.app",
     "productName": "Local File Toolkit",
-    "directories": { "output": "dist-electron" },
-    "files": ["electron/**", "public/icons/**", "package.json", "!node_modules/**"],
-    "extraResources": [{ "from": ".next/standalone", "to": "server" }],
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "electron/**",
+      "public/icons/**",
+      "package.json",
+      "!node_modules/**"
+    ],
+    "extraResources": [
+      {
+        "from": ".next/standalone",
+        "to": "server"
+      }
+    ],
     "afterPack": "scripts/after-pack.cjs",
-    "win": { "target": ["nsis"], "icon": "public/icons/icon-512.png" },
-    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true }
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "public/icons/icon-512.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   },
   "dependencies": {
     "@tesseract.js-data/eng": "^1.0.0",
