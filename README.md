@@ -55,7 +55,7 @@ Ada dua cara. Cara 1 paling gampang, dan nggak butuh Node.js atau npm sama sekal
 4. Pilih folder instalasi, lalu ikuti wizard sampai selesai.
 5. Buka **Local File Toolkit** dari shortcut di Desktop atau Start Menu.
 
-**Update:** download installer versi terbaru dari Releases, lalu jalankan. Kalau versi lama masih ada, installer akan menggantinya.
+**Update:** download installer versi terbaru dari Releases, lalu jalankan. Kalau versi lama masih ada, installer akan menggantinya. Mulai v0.1.2, aplikasi menampilkan banner "Version x.y.z is available" di halaman utama kalau ada rilis baru, dengan tombol **View release** yang membuka halaman Releases. Aplikasi nggak mengunduh atau memasang update sendiri. Pengecekannya bisa dimatikan, lihat [Soal privasi](#soal-privasi).
 
 **Uninstall:** Settings, Apps, Installed apps, lalu cari **Local File Toolkit**.
 
@@ -307,7 +307,7 @@ npm run electron:build
 
 Hasilnya ada di `dist-electron\Local File Toolkit Setup <versi>.exe`. File ini sudah berisi semua yang dibutuhkan, jadi komputer yang menjalankannya nggak perlu Node.js atau npm.
 
-Aplikasi desktop ini belum bisa update sendiri. Tiap ada versi baru, build installer-nya lagi lalu upload ke Releases.
+Aplikasi desktop ini belum bisa update sendiri. Tiap ada versi baru, naikkan `version` di `package.json`, build installer-nya lagi, lalu upload ke Releases dengan tag `vX.Y.Z` (misalnya `v0.1.2`). Banner "versi baru tersedia" membaca release terbaru dari GitHub, jadi formatnya harus `vX.Y.Z`.
 
 ### Struktur project
 
@@ -323,6 +323,8 @@ Aplikasi desktop ini belum bisa update sendiri. Tiap ada versi baru, build insta
 Tools yang jalan di browser (`mode: "client"` di `src/lib/tools.ts`) nggak mengirim isi file lewat jaringan. Kalau mau mengecek sendiri, buka tab Network di browser pas kamu pakai tools-nya.
 
 Tools sisi server cuma mengirim file ke route `/api/...` di `localhost`. Server menghapus folder kerja sementaranya begitu selesai menjawab, termasuk kalau terjadi error.
+
+Aplikasi desktop punya satu pengecualian: ia menanyakan ke GitHub (`api.github.com`) apakah ada versi baru, paling sering sekali setiap beberapa jam, lalu menampilkan banner kalau ada. Isi file-mu nggak ikut terkirim, tapi GitHub bisa melihat alamat IP-mu seperti pada permintaan web biasa. Aplikasi nggak mengunduh atau memasang apa pun sendiri. Mau mematikannya? Klik **Turn off update check** di halaman utama, dan setelah itu aplikasi nggak menghubungi GitHub sama sekali. Versi web dan dev server nggak melakukan pengecekan ini.
 
 ## Lisensi
 
