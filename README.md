@@ -213,7 +213,7 @@ npm run build
 
 Langkahnya sama di semua sistem operasi.
 
-1. Buka halaman utama. Cari tools lewat kolom search (tekan `/` atau `Ctrl+K` biar langsung bisa ngetik, di macOS bisa juga `Cmd+K`), atau filter per kategori: PDF, Gambar, Konversi, Utilitas.
+1. Buka halaman utama. Cari tools lewat kolom search (tekan `/` atau `Ctrl+K` biar langsung bisa ngetik, di macOS bisa juga `Cmd+K`), atau filter per kategori: PDF, Image, Convert, Files.
 2. Klik kartu tools yang kamu mau.
 3. Drag and drop file ke area yang tersedia, atau klik area itu buat pilih file.
 4. Atur opsinya kalau ada. Kalau tombol utama masih mati, lihat teks kecil di sebelahnya. Di situ tertulis apa yang kurang, misalnya "Add at least 2 PDFs to merge."
